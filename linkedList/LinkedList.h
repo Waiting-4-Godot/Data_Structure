@@ -25,7 +25,8 @@ public:
 	void insertBack(const AnyType& theElement);
 	AnyType get(int theIndex) const;
 	void set(int theIndex, const AnyType& theElement);
-	int indexOf(int theElement) const;
+	AnyType indexOf(AnyType theElement) const;
+	AnyType lastIndexOf( AnyType theElement) const;
 	void output(std::ostream& out) const;
 	AnyType erase(int theIndex);
 

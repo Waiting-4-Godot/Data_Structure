@@ -65,7 +65,7 @@ bool LinkedList<AnyType>::isEmpty() const {
 // 判断索引是否合法
 template<class AnyType>
 void LinkedList<AnyType>::checkIndex( int theIndex ) const {
-	if ( theIndex < 0 || ( theIndex >= listSize && theIndex != 0)) {
+	if ( theIndex < 0 || ( theIndex >= listSize && theIndex != 0 )) {
 		throw "非法索引";
 	}
 }
@@ -123,7 +123,7 @@ AnyType LinkedList<AnyType>::get( int theIndex ) const {
 
 // 返回第一次出现的值为 theElement 的节点的索引，若链表中不存在该节点则返回-1
 template<class AnyType>
-int LinkedList<AnyType>::indexOf( int theElement ) const {
+AnyType LinkedList<AnyType>::indexOf( AnyType theElement ) const {
 	Node<AnyType> *currentNode = headNode;
 	int index = 0;
 
@@ -137,6 +137,25 @@ int LinkedList<AnyType>::indexOf( int theElement ) const {
 	} else {
 		return -1;
 	}
+}
+
+
+// 返回指定元素最后一次出现的位置，若不存在返回-1
+template<class AnyType>
+AnyType LinkedList<AnyType>::lastIndexOf( AnyType theElement ) const {
+	Node<AnyType> *currentNode = headNode;
+	int index = -1;	// 最终返回的索引
+	int temp = 0;		// 记录当前比较的节点的索引
+
+	while ( currentNode != nullptr ) {
+		if ( theElement == currentNode->element ) {
+			index = temp;
+		}
+			currentNode = currentNode->next;
+		temp++;
+	}
+
+	return index;
 }
 
 
@@ -156,6 +175,7 @@ std::ostream &operator<<( std::ostream &out, const LinkedList<AnyType> &linkedLi
 }
 
 
+// 清空链表
 template<class AnyType>
 void LinkedList<AnyType>::clear() {
 	while ( headNode != nullptr ) {

@@ -23,17 +23,18 @@ int main() {
 	std::cout << "被删除元素为：" << linkedList.erase( 0 ) << std::endl;
 	std::cout << "size = " << linkedList.size() << std::endl;
 	linkedList.clear();
-	linkedList.insert(0, 1);
-	linkedList.insertBack(2);
-	linkedList.insertBefore(3);
-	linkedList.insert(1, 4);
+	linkedList.insert( 0, 1 );
+	linkedList.insertBack( 2 );
+	linkedList.insertBefore( 3 );
+	linkedList.insert( 1, 4 );
 	std::cout << linkedList << std::endl;
-	std::cout << linkedList.size() << std::endl;
 	try {
-		linkedList.set(4, 5);
-	} catch (char const* e) {
+		linkedList.set( 3, 5 );
+	} catch ( char const *e ) {
 		std::cout << e << std::endl;
 	}
-
+	linkedList.insertBack( 4 );
 	std::cout << linkedList << std::endl;
+	std::cout << "4 最后出现的位置为：" << linkedList.lastIndexOf( 4 ) << std::endl;
+	std::cout << "6 最后出现的位置为：" << linkedList.lastIndexOf( 6 ) << std::endl;
 }
