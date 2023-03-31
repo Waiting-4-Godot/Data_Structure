@@ -27,5 +27,13 @@ int main() {
 	linkedList.insertBack(2);
 	linkedList.insertBefore(3);
 	linkedList.insert(1, 4);
-	std::cout << linkedList;
+	std::cout << linkedList << std::endl;
+	std::cout << linkedList.size() << std::endl;
+	try {
+		linkedList.set(4, 5);
+	} catch (char const* e) {
+		std::cout << e << std::endl;
+	}
+
+	std::cout << linkedList << std::endl;
 }

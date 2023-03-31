@@ -17,15 +17,16 @@ public:
     LinkedList( const LinkedList<AnyType> & );
     ~LinkedList();
 
+	void clear();
 	bool isEmpty() const;
 	int size() const;
 	void insert(int theIndex, const AnyType& theElement);
 	void insertBefore(const AnyType& theElement);
 	void insertBack(const AnyType& theElement);
 	AnyType get(int theIndex) const;
+	void set(int theIndex, const AnyType& theElement);
 	int indexOf(int theElement) const;
 	void output(std::ostream& out) const;
-	void clear();
 	AnyType erase(int theIndex);
 
 

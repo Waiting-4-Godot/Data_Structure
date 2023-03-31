@@ -65,7 +65,7 @@ bool LinkedList<AnyType>::isEmpty() const {
 // 判断索引是否合法
 template<class AnyType>
 void LinkedList<AnyType>::checkIndex( int theIndex ) const {
-	if ( theIndex < 0 || theIndex > listSize ) {
+	if ( theIndex < 0 || ( theIndex >= listSize && theIndex != 0)) {
 		throw "非法索引";
 	}
 }
@@ -74,7 +74,7 @@ void LinkedList<AnyType>::checkIndex( int theIndex ) const {
 // 在 theIndex 处插入值为 theElement 的节点
 template<class AnyType>
 void LinkedList<AnyType>::insert( int theIndex, const AnyType &theElement ) {
-	checkIndex( theIndex );
+	//checkIndex( theIndex );
 
 	if ( theIndex == 0 ) {
 		headNode = new Node<AnyType>( theElement, headNode );
@@ -193,4 +193,19 @@ AnyType LinkedList<AnyType>::erase( int theIndex ) {
 	delete deleteNode;
 
 	return theElement;
+}
+
+
+// 将指定索引处节点的值修改为 theElement
+template<class AnyType>
+void LinkedList<AnyType>::set( int theIndex, const AnyType &theElement ) {
+	checkIndex( theIndex );
+
+	Node<AnyType> *currentNode = headNode;
+
+	for ( int i = 0; i < theIndex; ++i ) {
+		currentNode = currentNode->next;
+	}
+
+	currentNode->element = theElement;
 }
