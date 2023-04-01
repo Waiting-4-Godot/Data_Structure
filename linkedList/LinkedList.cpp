@@ -144,14 +144,14 @@ AnyType LinkedList<AnyType>::indexOf( AnyType theElement ) const {
 template<class AnyType>
 AnyType LinkedList<AnyType>::lastIndexOf( AnyType theElement ) const {
 	Node<AnyType> *currentNode = headNode;
-	int index = -1;	// 最终返回的索引
-	int temp = 0;		// 记录当前比较的节点的索引
+	int index = -1;    // 最终返回的索引
+	int temp = 0;        // 记录当前比较的节点的索引
 
 	while ( currentNode != nullptr ) {
 		if ( theElement == currentNode->element ) {
 			index = temp;
 		}
-			currentNode = currentNode->next;
+		currentNode = currentNode->next;
 		temp++;
 	}
 
@@ -172,6 +172,50 @@ template<class AnyType>
 std::ostream &operator<<( std::ostream &out, const LinkedList<AnyType> &linkedList ) {
 	linkedList.output( out );
 	return out;
+}
+
+
+// 重载 == 运算符。两个链表相等，当且仅当两个链表长度相等且每个对应节点中元素相等
+template<class AnyType>
+bool LinkedList<AnyType>::operator==( LinkedList<AnyType> &theLinkedList ) {
+	if ( this->size() != theLinkedList.size()) {
+		return false;
+	}
+
+	Node<AnyType> *targetNode = theLinkedList.headNode;
+	Node<AnyType> *currentNode = this->headNode;
+
+	while ( currentNode != nullptr ) {
+		if ( currentNode->element != targetNode->element ) {
+			return false;
+		}
+		currentNode = currentNode->next;
+		targetNode = targetNode->next;
+	}
+
+	return true;
+}
+
+
+template<class AnyType>
+bool LinkedList<AnyType>::operator!=( LinkedList<AnyType> &theLinkedList ) {
+	if ( this->size() != theLinkedList.size() ) {
+		return true;
+	}
+
+	bool isEqual = false;
+	Node<AnyType>* sourceNode = this->headNode;
+	Node<AnyType>* targetNode = theLinkedList.headNode;
+
+	while ( sourceNode != nullptr ) {
+		if ( sourceNode->element != targetNode->element ) {
+			isEqual = true;
+		}
+		sourceNode = sourceNode->next;
+		targetNode = targetNode->next;
+	}
+
+	return isEqual;
 }
 
 

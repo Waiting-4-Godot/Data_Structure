@@ -13,29 +13,31 @@
 template<class AnyType>
 class LinkedList {
 public:
-    LinkedList();
-    LinkedList( const LinkedList<AnyType> & );
-    ~LinkedList();
+	LinkedList();
+	LinkedList( const LinkedList<AnyType> & );
+	~LinkedList();
 
 	void clear();
 	bool isEmpty() const;
 	int size() const;
-	void insert(int theIndex, const AnyType& theElement);
-	void insertBefore(const AnyType& theElement);
-	void insertBack(const AnyType& theElement);
-	AnyType get(int theIndex) const;
-	void set(int theIndex, const AnyType& theElement);
-	AnyType indexOf(AnyType theElement) const;
-	AnyType lastIndexOf( AnyType theElement) const;
-	void output(std::ostream& out) const;
-	AnyType erase(int theIndex);
+	void insert( int theIndex, const AnyType &theElement );
+	void insertBefore( const AnyType &theElement );
+	void insertBack( const AnyType &theElement );
+	AnyType get( int theIndex ) const;
+	void set( int theIndex, const AnyType &theElement );
+	AnyType indexOf( AnyType theElement ) const;
+	AnyType lastIndexOf( AnyType theElement ) const;
+	void output( std::ostream &out ) const;
+	AnyType erase( int theIndex );
+	bool operator==( LinkedList<AnyType> &theLinkedList );
+	bool operator!=( LinkedList<AnyType> &theLinkedList );
 
 
 private:
 	int listSize;
-    Node<AnyType> *headNode;
+	Node<AnyType> *headNode;
 
-    void checkIndex(int theIndex) const;
+	void checkIndex( int theIndex ) const;
 };
 
 
