@@ -118,6 +118,16 @@ void testRemoveRange( LinkedList<int> &linkedList, int begin, int end ) {
 }
 
 
+void testSwap( LinkedList<int> &linkedList, int index1, int index2 ) {
+	linkedList.insertBack( 5 );
+	linkedList.insertBefore( 1 );
+	linkedList.insertBefore( 2 );
+	std::cout << "交换前的链表为："  << linkedList << std::endl;
+	linkedList.swap( index1, index2 );
+	std::cout << "交换后的链表为：" << linkedList << std::endl;
+}
+
+
 int main() {
 	LinkedList<int> linkedList;
 
@@ -130,5 +140,6 @@ int main() {
 	testLastIndexOf( linkedList );
 	testEqual();
 	testIndex( linkedList, 4 );
-	testRemoveRange( linkedList, 0, 4 );
+	testRemoveRange( linkedList, 1, 3 );
+	testSwap( linkedList, 0, 4);
 }

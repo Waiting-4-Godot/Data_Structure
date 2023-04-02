@@ -346,3 +346,54 @@ void LinkedList<AnyType>::removeRange( int begin, int end ) {
 	delete deleteNode;
 	listSize--;
 }
+
+
+// 交换两个指定索引元素
+template<class AnyType>
+void LinkedList<AnyType>::swap( int theIndex1, int theIndex2 ) {
+	checkIndex( theIndex1 );
+	checkIndex( theIndex2 );
+	if ( theIndex1 == theIndex2 ) {
+		throw "theIndex1 should be different from theIndex2";
+	}
+
+	int theSmaller = theIndex1 < theIndex2 ? theIndex1 : theIndex2;
+	int theBigger = theIndex1 > theIndex2 ? theIndex1 : theIndex2;
+	Node<AnyType> *currentNode = headNode;
+	Node<AnyType> *previousNode1 = nullptr;
+	Node<AnyType> *previousNode2 = nullptr;
+	Node<AnyType> *node1 = nullptr;
+	Node<AnyType> *nextNode1 = nullptr;
+
+	for ( int i = 0; i <= theBigger; ++i ) {
+		if ( i == theSmaller - 1 ) {
+			previousNode1 = currentNode;
+		}
+
+		if ( i == theSmaller ) {
+			node1 = currentNode;
+		}
+
+		if ( i == theSmaller + 1 ) {
+			nextNode1 = currentNode;
+		}
+
+		if ( i == theBigger - 1 ) {
+			previousNode2 = currentNode;
+		}
+		currentNode = currentNode->next;
+	}
+
+	if ( 0 == theSmaller ) {
+		// 当有节点为第一个节点时
+		headNode = previousNode2->next;
+		node1->next = previousNode2->next->next;
+		previousNode2->next->next = nextNode1;
+		previousNode2->next = node1;
+	} else {
+		node1->next = previousNode2->next->next;
+		previousNode2->next->next = nextNode1;
+		previousNode1->next = previousNode2->next;
+		previousNode2->next = node1;
+	}
+}

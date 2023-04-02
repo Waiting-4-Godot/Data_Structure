@@ -30,6 +30,7 @@ public:
 	void output( std::ostream &out ) const;
 	AnyType erase( int theIndex );
 	void removeRange( int begin, int end );
+	void swap(int theIndex1, int theIndex2);
 	bool operator==( LinkedList<AnyType> &theLinkedList );
 	bool operator!=( LinkedList<AnyType> &theLinkedList );
 	AnyType &operator[]( int theIndex );
