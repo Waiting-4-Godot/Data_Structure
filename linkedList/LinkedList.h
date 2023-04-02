@@ -29,8 +29,10 @@ public:
 	AnyType lastIndexOf( AnyType theElement ) const;
 	void output( std::ostream &out ) const;
 	AnyType erase( int theIndex );
+	void removeRange( int begin, int end );
 	bool operator==( LinkedList<AnyType> &theLinkedList );
 	bool operator!=( LinkedList<AnyType> &theLinkedList );
+	AnyType &operator[]( int theIndex );
 
 
 private:

@@ -198,14 +198,27 @@ bool LinkedList<AnyType>::operator==( LinkedList<AnyType> &theLinkedList ) {
 
 
 template<class AnyType>
+AnyType &LinkedList<AnyType>::operator[]( int theIndex ) {
+	checkIndex( theIndex );
+
+	Node<AnyType> *currentNode = headNode;
+	for ( int i = 0; i < theIndex; ++i ) {
+		currentNode = currentNode->next;
+	}
+
+	return currentNode->element;
+}
+
+
+template<class AnyType>
 bool LinkedList<AnyType>::operator!=( LinkedList<AnyType> &theLinkedList ) {
-	if ( this->size() != theLinkedList.size() ) {
+	if ( this->size() != theLinkedList.size()) {
 		return true;
 	}
 
 	bool isEqual = false;
-	Node<AnyType>* sourceNode = this->headNode;
-	Node<AnyType>* targetNode = theLinkedList.headNode;
+	Node<AnyType> *sourceNode = this->headNode;
+	Node<AnyType> *targetNode = theLinkedList.headNode;
 
 	while ( sourceNode != nullptr ) {
 		if ( sourceNode->element != targetNode->element ) {
@@ -272,4 +285,64 @@ void LinkedList<AnyType>::set( int theIndex, const AnyType &theElement ) {
 	}
 
 	currentNode->element = theElement;
+}
+
+
+// 删除指定区间内的所有节点，包括端点
+template<class AnyType>
+void LinkedList<AnyType>::removeRange( int begin, int end ) {
+	checkIndex( begin );
+	checkIndex( end );
+	if ( begin > end ) {
+		throw "begin should be bigger than end";
+	}
+
+	Node<AnyType> *currentNode = headNode;
+	Node<AnyType> *beginNode = nullptr;                    // 要删除区间的开端节点
+	Node<AnyType> *endNode = nullptr;                        // 要删除区间的末尾节点
+	Node<AnyType> *previousBeginNode = nullptr;        // 开端节点的前一个节点
+	Node<AnyType> *nextEndNode = nullptr;                // 末尾节点的后一个节点
+	Node <AnyType> *deleteNode;
+
+	for ( int i = 0; i <= end; ++i ) {
+		// 找到要删除范围开端的前一个节点
+		if ( begin != 0 && begin - 1 == i ) {
+			previousBeginNode = currentNode;
+		}
+
+		if ( begin == i ) {
+			beginNode = currentNode;
+		}
+
+		if ( end == i ) {
+			endNode = currentNode;
+		}
+		currentNode = currentNode->next;
+	}
+
+	// 找到要删除范围末尾的下一个节点
+	if ( end != listSize - 1 ) {
+		nextEndNode = endNode->next;
+	}
+
+	if ( 0 == begin && listSize - 1 != end ) {
+		headNode = nextEndNode;
+	} else if ( 0 != begin && listSize - 1 == end ) {
+		previousBeginNode->next = nullptr;
+	} else if ( 0 != begin && listSize - 1 != end ) {
+		previousBeginNode->next = nextEndNode;
+	} else {
+		clear();
+		return ;
+	}
+
+	while ( beginNode != endNode ) {
+		deleteNode = beginNode;
+		beginNode = beginNode->next;
+		delete deleteNode;
+		listSize--;
+	}
+	deleteNode = beginNode;
+	delete deleteNode;
+	listSize--;
 }

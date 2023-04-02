@@ -32,7 +32,7 @@ void testIndexOf( const LinkedList<int> &linkedList ) {
 }
 
 
-void testGet( const LinkedList<int> &linkedList) {
+void testGet( const LinkedList<int> &linkedList ) {
 	std::cout << linkedList << std::endl;
 	std::cout << "索引为 3 的节点的值为：" << linkedList.get( 3 ) << std::endl;
 	std::cout << std::endl;
@@ -99,8 +99,28 @@ void testEqual() {
 }
 
 
+void testIndex( LinkedList<int> &linkedList, int theIndex ) {
+	std::cout << linkedList << std::endl;
+	std::cout << linkedList[ theIndex ] << std::endl;
+	linkedList[ theIndex ] = 6;
+	std::cout << linkedList << std::endl;
+	std::cout << std::endl;
+}
+
+
+void testRemoveRange( LinkedList<int> &linkedList, int begin, int end ) {
+	std::cout << "删除前链表为: " << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+	linkedList.removeRange( begin, end );
+	std::cout << "删除后链表为: " << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+	std::cout << std::endl;
+}
+
+
 int main() {
 	LinkedList<int> linkedList;
+
 	testInsert( linkedList );
 	testIndexOf( linkedList );
 	testGet( linkedList );
@@ -109,4 +129,6 @@ int main() {
 	testSet( linkedList );
 	testLastIndexOf( linkedList );
 	testEqual();
+	testIndex( linkedList, 4 );
+	testRemoveRange( linkedList, 0, 4 );
 }
