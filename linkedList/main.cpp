@@ -122,9 +122,18 @@ void testSwap( LinkedList<int> &linkedList, int index1, int index2 ) {
 	linkedList.insertBack( 5 );
 	linkedList.insertBefore( 1 );
 	linkedList.insertBefore( 2 );
-	std::cout << "交换前的链表为："  << linkedList << std::endl;
+	std::cout << "交换索引为" << index1 << "与索引为" << index2 << "元素的位置" << std::endl;
+	std::cout << "交换前的链表为：" << linkedList << std::endl;
 	linkedList.swap( index1, index2 );
 	std::cout << "交换后的链表为：" << linkedList << std::endl;
+}
+
+
+void testReverse( LinkedList<int> &theLinkedList ) {
+	std::cout << std::endl;
+	std::cout << "链表逆序前：" << theLinkedList << std::endl;
+	theLinkedList.reverse();
+	std::cout << "链表逆序后：" << theLinkedList << std::endl;
 }
 
 
@@ -141,5 +150,6 @@ int main() {
 	testEqual();
 	testIndex( linkedList, 4 );
 	testRemoveRange( linkedList, 1, 3 );
-	testSwap( linkedList, 0, 4);
+	testSwap( linkedList, 0, 4 );
+	testReverse( linkedList );
 }

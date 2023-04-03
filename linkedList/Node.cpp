@@ -6,9 +6,7 @@
 
 
 template<class AnyType>
-Node<AnyType>::Node() {
-
-}
+Node<AnyType>::Node() = default;
 
 
 template<class AnyType>

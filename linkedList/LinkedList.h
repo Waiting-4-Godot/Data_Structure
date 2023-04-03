@@ -31,9 +31,11 @@ public:
 	AnyType erase( int theIndex );
 	void removeRange( int begin, int end );
 	void swap(int theIndex1, int theIndex2);
+	void reverse();
 	bool operator==( LinkedList<AnyType> &theLinkedList );
 	bool operator!=( LinkedList<AnyType> &theLinkedList );
 	AnyType &operator[]( int theIndex );
+
 
 
 private:

@@ -31,6 +31,7 @@ LinkedList<AnyType>::LinkedList( const LinkedList<AnyType> &theList ) {
 	sourceNode = sourceNode->next;
 	Node<AnyType> *targetNode = headNode;
 
+	// 复制剩余节点
 	while ( sourceNode != nullptr ) {
 		targetNode->next = new Node<AnyType>( sourceNode->element );
 		sourceNode = sourceNode->next;
@@ -144,7 +145,7 @@ AnyType LinkedList<AnyType>::indexOf( AnyType theElement ) const {
 template<class AnyType>
 AnyType LinkedList<AnyType>::lastIndexOf( AnyType theElement ) const {
 	Node<AnyType> *currentNode = headNode;
-	int index = -1;    // 最终返回的索引
+	int index = -1;        // 最终返回的索引
 	int temp = 0;        // 记录当前比较的节点的索引
 
 	while ( currentNode != nullptr ) {
@@ -198,19 +199,6 @@ bool LinkedList<AnyType>::operator==( LinkedList<AnyType> &theLinkedList ) {
 
 
 template<class AnyType>
-AnyType &LinkedList<AnyType>::operator[]( int theIndex ) {
-	checkIndex( theIndex );
-
-	Node<AnyType> *currentNode = headNode;
-	for ( int i = 0; i < theIndex; ++i ) {
-		currentNode = currentNode->next;
-	}
-
-	return currentNode->element;
-}
-
-
-template<class AnyType>
 bool LinkedList<AnyType>::operator!=( LinkedList<AnyType> &theLinkedList ) {
 	if ( this->size() != theLinkedList.size()) {
 		return true;
@@ -229,6 +217,20 @@ bool LinkedList<AnyType>::operator!=( LinkedList<AnyType> &theLinkedList ) {
 	}
 
 	return isEqual;
+}
+
+
+// 重载 [] 运算符。使链表可以像数组一样操作
+template<class AnyType>
+AnyType &LinkedList<AnyType>::operator[]( int theIndex ) {
+	checkIndex( theIndex );
+
+	Node<AnyType> *currentNode = headNode;
+	for ( int i = 0; i < theIndex; ++i ) {
+		currentNode = currentNode->next;
+	}
+
+	return currentNode->element;
 }
 
 
@@ -302,7 +304,7 @@ void LinkedList<AnyType>::removeRange( int begin, int end ) {
 	Node<AnyType> *endNode = nullptr;                        // 要删除区间的末尾节点
 	Node<AnyType> *previousBeginNode = nullptr;        // 开端节点的前一个节点
 	Node<AnyType> *nextEndNode = nullptr;                // 末尾节点的后一个节点
-	Node <AnyType> *deleteNode;
+	Node<AnyType> *deleteNode;
 
 	for ( int i = 0; i <= end; ++i ) {
 		// 找到要删除范围开端的前一个节点
@@ -333,7 +335,7 @@ void LinkedList<AnyType>::removeRange( int begin, int end ) {
 		previousBeginNode->next = nextEndNode;
 	} else {
 		clear();
-		return ;
+		return;
 	}
 
 	while ( beginNode != endNode ) {
@@ -357,13 +359,13 @@ void LinkedList<AnyType>::swap( int theIndex1, int theIndex2 ) {
 		throw "theIndex1 should be different from theIndex2";
 	}
 
-	int theSmaller = theIndex1 < theIndex2 ? theIndex1 : theIndex2;
-	int theBigger = theIndex1 > theIndex2 ? theIndex1 : theIndex2;
+	const int theSmaller = theIndex1 < theIndex2 ? theIndex1 : theIndex2;
+	const int theBigger = theIndex1 > theIndex2 ? theIndex1 : theIndex2;
 	Node<AnyType> *currentNode = headNode;
-	Node<AnyType> *previousNode1 = nullptr;
-	Node<AnyType> *previousNode2 = nullptr;
-	Node<AnyType> *node1 = nullptr;
-	Node<AnyType> *nextNode1 = nullptr;
+	Node<AnyType> *previousNode1 = nullptr;            // 索引较小的节点的前一个节点
+	Node<AnyType> *previousNode2 = nullptr;            // 索引较大的节点的前一个节点
+	Node<AnyType> *node1 = nullptr;                            // 索引较小的节点
+	Node<AnyType> *nextNode1 = nullptr;                    // 索引较小的节点的后一个节点
 
 	for ( int i = 0; i <= theBigger; ++i ) {
 		if ( i == theSmaller - 1 ) {
@@ -381,19 +383,51 @@ void LinkedList<AnyType>::swap( int theIndex1, int theIndex2 ) {
 		if ( i == theBigger - 1 ) {
 			previousNode2 = currentNode;
 		}
+
 		currentNode = currentNode->next;
 	}
 
 	if ( 0 == theSmaller ) {
-		// 当有节点为第一个节点时
+		// 当索引较小的节点为链表中第一个节点时
 		headNode = previousNode2->next;
 		node1->next = previousNode2->next->next;
 		previousNode2->next->next = nextNode1;
 		previousNode2->next = node1;
 	} else {
+		// 其他情况
 		node1->next = previousNode2->next->next;
 		previousNode2->next->next = nextNode1;
 		previousNode1->next = previousNode2->next;
 		previousNode2->next = node1;
 	}
+}
+
+
+// 逆序链表中元素
+template<class AnyType>
+void LinkedList<AnyType>::reverse() {
+	Node<AnyType> *currentNode = headNode;
+	Node<AnyType> *previousNode = nullptr;
+	Node<AnyType> *tailNode = nullptr;
+
+	for ( int i = listSize - 1; i > 0; --i ) {
+		currentNode = headNode;
+
+		for ( int j = i; j > 0; --j) {
+			if ( 1 == j ) {
+				previousNode = currentNode;
+			}
+
+			currentNode = currentNode->next;
+
+			if (( listSize - 1 == i ) && ( 1 == j )) {
+				tailNode = currentNode;
+			}
+		}
+
+		currentNode->next = previousNode;
+	}
+
+	headNode->next = nullptr;
+	headNode = tailNode;
 }
