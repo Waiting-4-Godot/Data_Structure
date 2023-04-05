@@ -83,6 +83,19 @@ void DoublyLinkedList<AnyType>::checkIndex( int theIndex ) const {
 }
 
 
+// 返回指定索引处的节点, 若链表中没有除头节点以外的节点则返回头节点
+template<class AnyType>
+doublyLinkedListNode::Node<AnyType>* DoublyLinkedList<AnyType>::getNode( int theIndex ) {
+	doublyLinkedListNode::Node<AnyType> *currentNode = headerNode->next;
+
+	for ( int i = 0; i < theIndex; ++i ) {
+		currentNode = currentNode->next;
+	}
+
+	return currentNode;
+}
+
+
 // 返回链表长度
 template<class AnyType>
 int DoublyLinkedList<AnyType>::size() const {
@@ -139,13 +152,9 @@ void DoublyLinkedList<AnyType>::insert( const int theIndex, const AnyType theEle
 		}
 	} else {
 		// 在其他位置插入
-		doublyLinkedListNode::Node<AnyType> *currentNode = headerNode;
-		for ( int i = 0; i < theIndex; ++i ) {
-			// 找到插入位置
-			currentNode = currentNode->next;
-		}
+		doublyLinkedListNode::Node<AnyType> *currentNode = getNode( theIndex );
 		currentNode->next = new doublyLinkedListNode::Node<AnyType>( theElement, currentNode, currentNode->next );
-		if ( listSize != theIndex ) {
+		if ( (listSize - 1) != theIndex ) {
 			/*
 			 * 在插入位置后面还有节点
 			 * 此时该节点的 previous 还指向 currentNode，需要修改其指向，将其指向插入的节点
@@ -168,7 +177,34 @@ void DoublyLinkedList<AnyType>::insertFront( const AnyType theElement ) {
 // 在链表尾部进行插入
 template<class AnyType>
 void DoublyLinkedList<AnyType>::insertBack( const AnyType theElement ) {
-	insert( listSize, theElement );
+	insert( listSize - 1, theElement );
+}
+
+
+// 删除指定索引处节点
+template<class AnyType>
+AnyType DoublyLinkedList<AnyType>::remove( int theIndex ) {
+	checkIndex( theIndex );
+
+	doublyLinkedListNode::Node<AnyType> *deleteNode = getNode( theIndex );
+	AnyType deleteElement = deleteNode->element;
+
+	if ( 0 == theIndex ) {
+		// 删除的为第一个节点
+		headerNode->next = deleteNode->next;
+		deleteNode->next->previous = nullptr;
+	} else if (( listSize - 1 ) == theIndex) {
+		// 删除的为最后一个节点
+		deleteNode->previous->next = nullptr;
+	} else {
+		// 删除的节点不是第一个节点
+		deleteNode->previous->next = deleteNode->next;
+		deleteNode->next->previous = deleteNode->previous;
+	}
+	delete deleteNode;
+	listSize--;
+
+	return deleteElement;
 }
 
 } // doublyLinkedList

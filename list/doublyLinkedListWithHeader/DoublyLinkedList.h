@@ -25,11 +25,13 @@ public:
 	bool isEmpty() const;
 	void output( std::ostream &out ) const;
 	void insert( int theIndex, AnyType theElement );
-	void insertFront( const AnyType theElement );
-	void insertBack( const AnyType theElement );
+	void insertFront( AnyType theElement );
+	void insertBack( AnyType theElement );
+	AnyType remove( int theIndex );
 
 private:
 	void checkIndex( int theIndex ) const;
+	doublyLinkedListNode::Node<AnyType>* getNode( int theIndex );
 
 	doublyLinkedListNode::Node<AnyType> *headerNode;
 	int listSize;

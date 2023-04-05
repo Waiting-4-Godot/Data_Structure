@@ -26,9 +26,9 @@ void testInsert( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
 	std::cout << "is empty? " << linkedList.isEmpty() << std::endl;
 	linkedList.insert( 0, 1 );
 	linkedList.insert( 0, 2 );
-	linkedList.insert( 0 , 3 );
+	linkedList.insert( 0, 3 );
 	linkedList.insert( 1, 4 );
-	linkedList.insert( 4, 5 );
+	linkedList.insert( 3, 5 );
 	std::cout << "插入后: " << std::endl;
 	std::cout << linkedList << std::endl;
 	std::cout << "size = " << linkedList.size() << std::endl;
@@ -72,6 +72,18 @@ void testInsertBack( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
 }
 
 
+void testRemove( doublyLinkedList::DoublyLinkedList<int>& linkedList, const int theIndex ) {
+	std::cout << std::endl;
+	std::cout << "删除前：" <<std::endl;
+	std::cout << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+	std::cout << "删除索引为 " << theIndex << "处元素后: " << std::endl;
+	std::cout << "被删除的元素为：" << linkedList.remove( theIndex ) << std::endl;
+	std::cout << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+}
+
+
 int main() {
 	doublyLinkedList::DoublyLinkedList<int> linkedList;
 
@@ -81,4 +93,5 @@ int main() {
 	testClear( linkedList );
 	testInsertFront( linkedList );
 	testInsertBack( linkedList );
+	testRemove( linkedList, 0 );
 }
