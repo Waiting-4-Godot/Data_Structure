@@ -1,0 +1,3 @@
+add_subdirectory(arrayList)
+add_subdirectory(linkedList)
+add_subdirectory(doublyLinkedListWithHeader)
