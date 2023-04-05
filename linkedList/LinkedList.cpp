@@ -20,7 +20,7 @@ LinkedList<AnyType>::LinkedList( const LinkedList<AnyType> &theList ) {
 	listSize = theList.listSize;
 
 	// 链表 theList 为空
-	if ( 0 == theList ) {
+	if ( 0 == listSize ) {
 		headNode = nullptr;
 		return;
 	}

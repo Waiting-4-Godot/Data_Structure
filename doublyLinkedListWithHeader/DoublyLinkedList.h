@@ -5,6 +5,7 @@
 #ifndef BLACKSKIN_MYCODE_DOUBLYLINKEDLIST_H
 #define BLACKSKIN_MYCODE_DOUBLYLINKEDLIST_H
 
+#include <ostream>
 #include "Node.h"
 #include "Node.cpp"
 
@@ -22,6 +23,8 @@ public:
 	void clear();
 	int size() const;
 	bool isEmpty() const;
+	void insert( int theIndex, AnyType theElement );
+	void output( std::ostream &out ) const;
 
 private:
 	void checkIndex( int theIndex ) const;

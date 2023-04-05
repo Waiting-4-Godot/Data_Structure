@@ -14,7 +14,7 @@ public:
 	explicit Node( AnyType element );
 	Node( AnyType element, Node<AnyType> *previous, Node<AnyType> *next );
 
-private:
+
 	AnyType element;
 	Node *previous;
 	Node *next;
