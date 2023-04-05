@@ -36,10 +36,49 @@ void testInsert( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
 }
 
 
+void testClear( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
+	std::cout << std::endl;
+	std::cout << "清空前：" << linkedList << std::endl;
+	linkedList.clear();
+	std::cout << "清空后：" << linkedList << std::endl;
+}
+
+
+void testInsertFront( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
+	std::cout << std::endl;
+	std::cout << "插入前：" << linkedList << std::endl;
+
+	linkedList.insertFront( 0 );
+	linkedList.insertFront( 1 );
+	linkedList.insertFront( 2 );
+	linkedList.insertFront( 3 );
+	linkedList.insertFront( 4 );
+
+	std::cout << "插入后：" << linkedList << std::endl;
+}
+
+
+void testInsertBack( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
+	std::cout << std::endl;
+	std::cout << "插入前：" << linkedList << std::endl;
+
+	linkedList.insertBack( 5 );
+	linkedList.insertBack( 6 );
+	linkedList.insertBack( 7 );
+	linkedList.insertBack( 8 );
+	linkedList.insertBack( 9 );
+
+	std::cout << "插入后：" << linkedList << std::endl;
+}
+
+
 int main() {
 	doublyLinkedList::DoublyLinkedList<int> linkedList;
 
 	testSize( linkedList );
 	testIsEmpty( linkedList );
 	testInsert( linkedList );
+	testClear( linkedList );
+	testInsertFront( linkedList );
+	testInsertBack( linkedList );
 }

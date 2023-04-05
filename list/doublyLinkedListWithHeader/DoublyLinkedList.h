@@ -23,8 +23,10 @@ public:
 	void clear();
 	int size() const;
 	bool isEmpty() const;
-	void insert( int theIndex, AnyType theElement );
 	void output( std::ostream &out ) const;
+	void insert( int theIndex, AnyType theElement );
+	void insertFront( const AnyType theElement );
+	void insertBack( const AnyType theElement );
 
 private:
 	void checkIndex( int theIndex ) const;

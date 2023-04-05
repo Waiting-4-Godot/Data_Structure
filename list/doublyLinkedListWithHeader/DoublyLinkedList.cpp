@@ -97,7 +97,27 @@ bool DoublyLinkedList<AnyType>::isEmpty() const {
 }
 
 
-// 在索引 theIndex 处插入节点
+// 将链表放入输出流
+template<class AnyType>
+void DoublyLinkedList<AnyType>::output( std::ostream &out ) const {
+	doublyLinkedListNode::Node<AnyType> *currentNode = headerNode->next;
+
+	while ( currentNode != nullptr && currentNode != headerNode ) {
+		out << currentNode->element << " ";
+		currentNode = currentNode->next;
+	}
+}
+
+
+// 重载 << 运算符
+template<class AnyType>
+std::ostream& operator<<( std::ostream &out, const doublyLinkedList::DoublyLinkedList<AnyType> &linkedList ) {
+	linkedList.output( out );
+	return out;
+}
+
+
+// 在指定的索引 theIndex 处插入节点
 template<class AnyType>
 void DoublyLinkedList<AnyType>::insert( const int theIndex, const AnyType theElement ) {
 	checkIndex( theIndex );
@@ -138,23 +158,17 @@ void DoublyLinkedList<AnyType>::insert( const int theIndex, const AnyType theEle
 }
 
 
-// 将链表放入输出流
+// 在链表头部 进行插入
 template<class AnyType>
-void DoublyLinkedList<AnyType>::output( std::ostream &out ) const {
-	doublyLinkedListNode::Node<AnyType> *currentNode = headerNode->next;
-
-	while ( currentNode != nullptr && currentNode != headerNode ) {
-		out << currentNode->element << " ";
-		currentNode = currentNode->next;
-	}
+void DoublyLinkedList<AnyType>::insertFront( const AnyType theElement ) {
+	insert( 0, theElement );
 }
 
 
-// 重载 << 运算符
+// 在链表尾部进行插入
 template<class AnyType>
-std::ostream& operator<<( std::ostream &out, const doublyLinkedList::DoublyLinkedList<AnyType> &linkedList ) {
-	linkedList.output( out );
-	return out;
+void DoublyLinkedList<AnyType>::insertBack( const AnyType theElement ) {
+	insert( listSize, theElement );
 }
 
 } // doublyLinkedList
