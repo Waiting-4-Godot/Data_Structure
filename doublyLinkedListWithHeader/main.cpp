@@ -25,7 +25,10 @@ void testInsert( doublyLinkedList::DoublyLinkedList<int> &linkedList ) {
 	std::cout << "size = " << linkedList.size() << std::endl;
 	std::cout << "is empty? " << linkedList.isEmpty() << std::endl;
 	linkedList.insert( 0, 1 );
-	linkedList.insert( 1, 2 );
+	linkedList.insert( 0, 2 );
+	linkedList.insert( 0 , 3 );
+	linkedList.insert( 1, 4 );
+	linkedList.insert( 4, 5 );
 	std::cout << "插入后: " << std::endl;
 	std::cout << linkedList << std::endl;
 	std::cout << "size = " << linkedList.size() << std::endl;

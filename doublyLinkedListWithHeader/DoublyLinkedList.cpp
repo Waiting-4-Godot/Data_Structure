@@ -125,7 +125,13 @@ void DoublyLinkedList<AnyType>::insert( const int theIndex, const AnyType theEle
 			currentNode = currentNode->next;
 		}
 		currentNode->next = new doublyLinkedListNode::Node<AnyType>( theElement, currentNode, currentNode->next );
-		currentNode->next->next->previous = currentNode->next;
+		if ( listSize != theIndex ) {
+			/*
+			 * 在插入位置后面还有节点
+			 * 此时该节点的 previous 还指向 currentNode，需要修改其指向，将其指向插入的节点
+			 */
+			currentNode->next->next->previous = currentNode->next;
+		}
 	}
 
 	listSize++;
