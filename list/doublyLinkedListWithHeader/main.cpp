@@ -84,6 +84,16 @@ void testRemove( doublyLinkedList::DoublyLinkedList<int>& linkedList, const int 
 }
 
 
+void testRemoveRange( doublyLinkedList::DoublyLinkedList<int>& linkedList, int frontIndex, int backIndex) {
+	std::cout << std::endl;
+	std::cout << "删除前:\n" << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+	linkedList.remove( frontIndex, backIndex );
+	std::cout << "删除[" << frontIndex << "," << backIndex << "]" << "之间的元素后:\n" << linkedList << std::endl;
+	std::cout << "size = " << linkedList.size() << std::endl;
+}
+
+
 int main() {
 	doublyLinkedList::DoublyLinkedList<int> linkedList;
 
@@ -94,4 +104,5 @@ int main() {
 	testInsertFront( linkedList );
 	testInsertBack( linkedList );
 	testRemove( linkedList, 0 );
+	testRemoveRange( linkedList, 3, 6 );
 }

@@ -28,6 +28,7 @@ public:
 	void insertFront( AnyType theElement );
 	void insertBack( AnyType theElement );
 	AnyType remove( int theIndex );
+	void remove( int theFront, int theBack );
 
 private:
 	void checkIndex( int theIndex ) const;

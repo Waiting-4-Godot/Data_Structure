@@ -147,7 +147,7 @@ void DoublyLinkedList<AnyType>::insert( const int theIndex, const AnyType theEle
 			// 使原索引为0的节点的 previous 指向现索引为0的节点
 			headerNode->next->next->previous = headerNode->next;
 		} else {
-			// 插入位置后没有节点
+			// 插入位置后没有节点(该节点为第一个节点)
 			headerNode->next = new doublyLinkedListNode::Node<AnyType>( theElement, nullptr, nullptr );
 		}
 	} else {
@@ -197,7 +197,7 @@ AnyType DoublyLinkedList<AnyType>::remove( int theIndex ) {
 		// 删除的为最后一个节点
 		deleteNode->previous->next = nullptr;
 	} else {
-		// 删除的节点不是第一个节点
+		// 删除的节点为中间节点
 		deleteNode->previous->next = deleteNode->next;
 		deleteNode->next->previous = deleteNode->previous;
 	}
@@ -205,6 +205,41 @@ AnyType DoublyLinkedList<AnyType>::remove( int theIndex ) {
 	listSize--;
 
 	return deleteElement;
+}
+
+
+// 删除指定索引 [theFront, theBack] 范围内的所有节点
+template<class AnyType>
+void DoublyLinkedList<AnyType>::remove( int theFront, int theBack ) {
+	if ( theFront > theBack ) {
+		throw "theFront must be bigger than theBack";
+	}
+	checkIndex( theFront );
+	checkIndex( theBack );
+
+	if ( 0 == theFront && listSize - 1 == theBack ) {
+		clear();
+	} else if ( theFront == theBack ) {
+		remove( theFront );
+	} else {
+		doublyLinkedListNode::Node<AnyType> *frontNode = getNode( theFront );
+		doublyLinkedListNode::Node<AnyType> *backNode = getNode( theBack );
+		doublyLinkedListNode::Node<AnyType> *currentNode = frontNode;
+		doublyLinkedListNode::Node<AnyType> *deleteNode = currentNode;
+
+		while ( currentNode != backNode ) {
+			currentNode->previous->next = currentNode->next;
+			currentNode->next->previous = currentNode->previous;
+			currentNode = currentNode->next;
+			delete deleteNode;
+			deleteNode = currentNode;
+		}
+		currentNode->previous->next = currentNode->next;
+		currentNode->next->previous = currentNode->previous;
+		delete deleteNode;
+
+		listSize = listSize - theBack + theFront - 1;
+	}
 }
 
 } // doublyLinkedList
